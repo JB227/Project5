@@ -22,13 +22,14 @@ public class HammingDistance extends JFrame{
     JTextField distEnter = new JTextField(15);
     JSlider slider = new JSlider(JSlider.HORIZONTAL, 1,4,2);
     JButton ShowStation = new JButton("Show Station");
-    JScrollPane scrollPane = new JScrollPane();
     JButton fakeButton = new JButton("SOMETHING CREATIVE! It's unique at least");
     JLabel compWith = new JLabel("Compare with:");
     String[] choices = {"ACME","ADAX","ALTU","ALV2" ,"ANT2" ,"APAC" ,"ARD2" ,"ARNE" ,"BEAV" ,"BESS" ,"BIXB" ,"BLAC" ,"BOIS","BREC","BRIS","BROK","BUFF","BURB","BURN","BUTL","BYAR","CAMA","CARL","CENT","CHAN","CHER" ,"CHEY" ,"CHIC" ,"CLAY" ,"CLOU" ,"COOK" ,"COPA" , 
     		"DURA","ELKC","ELRE","ERIC","EUFA","EVAX","FAIR","FITT","FORA","FREE","FTCB","GOOD","GRA2","GUTH","HASK","HECT","HINT","HOBA","HOLD","HOLL","HOOK","HUGO","IDAB","INOL","JAYX","KENT","KETC","KIN2","LAHO" ,"LANE" ,"MADI" ,"MANG" , 
     		"MARE","MAYR","MCAL","MEDF","MEDI","MIAM","MINC","MRSH","MTHE","NEWK","NEWP","NOWA","NRMN","OILT","OKCE","OKEM","OKMU","PAUL","PAWN","PERK","PORT","PRYO","PUTN","REDR","RING","SALL","SEIL","SEMI","SHAW" ,"SKIA" ,"SLAP" ,"SPEN" , 
     		"STIG","STIL","STUA","SULP","TAHL","TALA","TALI","TIPT","TISH","TULN","VALL","VINI","WAL2","WASH","WATO","WAUR","WEAT","WEBR","WEST","WILB","WIST","WOOD","WYNO","YUKO"};
+    JTextArea textArea = new JTextArea();
+    JScrollPane scrollPane = new JScrollPane(textArea);
     JComboBox<String> roller = new JComboBox<String>(choices);
     JButton calcHD = new JButton("Calculate HD");
     JLabel Dist0 = new JLabel("Distance 0");
@@ -146,7 +147,14 @@ public class HammingDistance extends JFrame{
     	this.add(RPanel, BorderLayout.EAST);
     	distEnter.setText(Integer.toString(slider.getValue()));
     	
-    	
+    	ShowStation.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+    	    	textArea.setText("");
+    			findMatches((String)roller.getSelectedItem(), slider.getValue());
+				
+			}
+    	});
     	
     	slider.addChangeListener(new ChangeListener() {
     		public void stateChanged(ChangeEvent e) {
@@ -155,6 +163,7 @@ public class HammingDistance extends JFrame{
     	});
     	
     	calcHD.addActionListener(new ActionListener() {
+    		@Override
     		public void actionPerformed(ActionEvent e) {
     			calcHammDist((String)roller.getSelectedItem());
     		}
@@ -201,16 +210,15 @@ public class HammingDistance extends JFrame{
     }
     
     public void findMatches(String stID, int num) {
-    	ArrayList<String> matches = new ArrayList<String>();
     	for(int j = 0; j<choices.length; j++) {
     		int count = 0;
     		for(int k = 0; k<4; k++) {
     			if(stID.charAt(k) != choices[j].charAt(k)) {
     				++count;
     			}
-    			if(count == num) {
-    				matches.add(choices[j]);
-    			}
+    		}
+			if(count == num) {
+				textArea.append(choices[j]+"\n");
     		}
     	}
     }
