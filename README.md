@@ -13,3 +13,8 @@ An open dialogue was kept with other students in regards to the nature of this p
 Most problems encountered during the process were solved by either frantic googling or via dialogue with fellow classmates, along with some playful banter to keep spirits up at 4 am
 Now, as it edges on to 5:30, I finish making my UML, and I finish writing this README. I hope you have mercy on me, I've had a bad time.
 Also, you didn't really say how to submit the UML, so ask me here to show it to you, it's on my computer
+As for what the individual methods do, they're all fairly well explained via the name. 
+HammingDistance is the constructor, which includes most of the formatting and heavy lifting
+CalcHammDIst calculates the Hamming Distance for the selected station
+findMatches takes the selected station and the value of the slider, and adds every one with a Hamming Distance equal to the sliders value to the scrollpane
+and the Main method just creates the frame
